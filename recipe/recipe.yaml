@@ -1,0 +1,63 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+schema_version: 1
+
+context:
+  version: "0.4.0"
+  vale_name: proselint
+  summary: proselint rules for vale grammar and style checker
+  # well-known
+  styles: share/vale/styles
+  # os
+  export: ${{ "export" if unix else "set" }}
+  mkdir_p: ${{ "mkdir -p" if unix else "md" }}
+  slash: ${{ "/" if unix else "\\" }}
+  cp_r: ${{ "cp -r" if unix else "copy" }}
+  os_styles: ${{ slash }}${{ styles | split("/") | join(slash) }}${{ slash }}
+
+package:
+  name: vale-styles-proselint
+  version: ${{ version }}
+
+source:
+  - url: https://github.com/errata-ai/${{ vale_name }}/releases/download/v${{ version }}/${{ vale_name }}.zip
+    sha256: e09f637e4a7beab802c3fb7c9259ec2b2f383fdd4b24b329e3fe50a715a45e67
+    target_directory: ${{ vale_name }}
+  - url: https://raw.githubusercontent.com/vale-cli/${{ vale_name }}/refs/tags/v${{ version }}/LICENSE
+    sha256: b1f23c552b813bb86d87ed697d895a5e03bf80a3882f9ffd87fcdeb176f103c0
+    target_directory: ${{ vale_name }}
+
+build:
+  number: 0
+  noarch: generic
+  script:
+    - ${{ mkdir_p }} "${{ PREFIX }}${{ os_styles }}"
+    - ${{ cp_r }} "${{ vale_name }}" "${{ PREFIX }}${{ os_styles }}${{ slash }}${{ vale_name }}"
+
+requirements:
+  run:
+    - vale
+
+tests:
+  - package_contents:
+      strict: true
+      files:
+        - ${{ styles }}/${{ vale_name }}/*.yml
+        - ${{ styles }}/${{ vale_name }}/{LICENSE,README.md}
+        - ${{ styles }}/${{ vale_name }}/meta.json
+  - requirements:
+      run:
+        - pytest
+    script:
+      env:
+        VALE_PKG_NAME: ${{ vale_name }}
+      file: run_test.py
+
+about:
+  license: BSD-3-Clause
+  license_file: ${{ vale_name }}/LICENSE
+  summary: ${{ summary }}
+  homepage: https://github.com/errata-ai/${{ vale_name }}
+
+extra:
+  recipe-maintainers:
+    - bollwyvl

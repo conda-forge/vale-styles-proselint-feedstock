@@ -48,7 +48,28 @@ taking off momentarily
 
 # output
 EXPECT_JSON = """
-  {}
+  {
+    "README.md": [
+      {
+        "Action": {
+          "Name": "",
+          "Params": null
+        },
+        "Suggestions": [],
+        "Span": [
+          1,
+          22
+        ],
+        "Check": "proselint.Airlinese",
+        "Description": "",
+        "Link": "https://github.com/amperser/proselint",
+        "Message": "'taking off momentarily' is airlinese.",
+        "Severity": "error",
+        "Match": "taking off momentarily",
+        "Line": 2
+      }
+    ]
+  }
 """
 
 

@@ -42,7 +42,7 @@ tests:
       strict: true
       files:
         - ${{ styles }}/${{ vale_name }}/*.yml
-        - ${{ styles }}/${{ vale_name }}/LICENSE
+        - ${{ styles }}/${{ vale_name }}/{LICENSE,README.md}
         - ${{ styles }}/${{ vale_name }}/meta.json
   - requirements:
       run:

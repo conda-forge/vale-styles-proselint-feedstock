@@ -5,7 +5,7 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/vale-styles-pro
 
 Home: https://github.com/errata-ai/proselint
 
-Package license: MIT
+Package license: BSD-3-Clause
 
 Summary: proselint rules for vale grammar and style checker
 

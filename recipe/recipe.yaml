@@ -8,7 +8,7 @@ context:
   # well-known
   styles: share/vale/styles
   # os
-  export: ${{ "export" if unix else "set "}}
+  export: ${{ "export" if unix else "set " }}
   mkdir_p: ${{ "mkdir -p" if unix else "md" }}
   slash: ${{ "/" if unix else "\\" }}
   cp_r: ${{ "cp -r" if unix else "copy" }}
